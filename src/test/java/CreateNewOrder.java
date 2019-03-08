@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Test3 {
+public class CreateNewOrder {
 
     private WebDriver driver;
     private final static String VM_CLASS_VALUE ="regular";
@@ -27,12 +27,8 @@ public class Test3 {
 
     @Test
     public void createTestTree() {
-        System.setProperty("webdriver.chrome.driver", "D:\\chromedriver.exe");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--start-maximized");
-        driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
 
+        driver = DriverManager.getWebDriver();
         driver.get("https://cloud.google.com/");
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,2000)");

@@ -7,14 +7,12 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.List;
 
-public class Test1 {
+public class PrintSomeText {
+    private WebDriver driver;
 
     @Test
     public void create() {
-        System.setProperty("webdriver.chrome.driver", "D:\\chromedriver.exe");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--start-maximized");
-        WebDriver driver = new ChromeDriver(options);
+        driver = DriverManager.getWebDriver();
         driver.get("https://pastebin.com/");
 
         WebElement codeInput = driver.findElement(By.id("paste_code"));

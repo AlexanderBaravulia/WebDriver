@@ -6,7 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class Test2 {
+public class CompareSomeText {
+    private WebDriver driver;
     private final static String TITLE = "how to gain dominance among developers";
     private final static String CODE_TEXT = "git config --global user.name  \"New Sheriff in Town\"\n" +
             "git reset $(git commit-tree HEAD^{tree} -m \"Legacy code\")\n" +
@@ -14,8 +15,7 @@ public class Test2 {
     @Test
     public void createNewPasteTest(){
 
-        System.setProperty("webdriver.chrome.driver", "D:\\chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
+        driver = DriverManager.getWebDriver();
         driver.get("https://pastebin.com/");
         WebElement codeInput = driver.findElement(By.className("paste_textarea"));
         codeInput.sendKeys(CODE_TEXT);
