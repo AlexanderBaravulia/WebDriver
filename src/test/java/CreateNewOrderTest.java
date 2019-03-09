@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CreateNewOrder {
+public class CreateNewOrderTest {
 
     private WebDriver driver;
     private final static String VM_CLASS_VALUE ="regular";
