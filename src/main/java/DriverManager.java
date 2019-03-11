@@ -8,7 +8,7 @@ public class DriverManager {
 
     private static WebDriver driver;
 
-    public static WebDriver getWebDriver(){
+    public static WebDriver getChromeDriver(){
         System.setProperty("webdriver.chrome.driver", "D:\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--start-maximized");

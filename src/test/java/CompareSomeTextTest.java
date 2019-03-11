@@ -14,7 +14,7 @@ public class CompareSomeTextTest {
     @Test
     public void createNewPasteTest(){
 
-        driver = DriverManager.getWebDriver();
+        driver = DriverManager.getChromeDriver();
         driver.get("https://pastebin.com/");
 
         PastebinHomePage pastebinHomePage = new PastebinHomePage(driver);

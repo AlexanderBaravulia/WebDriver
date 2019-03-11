@@ -1,12 +1,11 @@
 package pages.googlecloud;
 
-import org.openqa.selenium.By;
+
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
@@ -73,9 +72,29 @@ public class GoogleCloudPlatformPricingCalculatorPage {
     @FindBy(id = "select_option_100")
     private WebElement committedUsageOption;
 
+    @FindBy(xpath = "//button[@aria-label='Add to Estimate'][1]")
+    private WebElement addToEstimateButton;
 
     @FindBy(tagName = "iframe")
     private WebElement frame;
+
+    @FindBy (xpath = "//div[contains(text(),\"VM class\")]")
+    private WebElement vmClass;
+
+    @FindBy (xpath ="//div[contains(text(),\"Instance type:\")]")
+    private WebElement instanceType;
+
+    @FindBy (xpath = "//div[contains(text(),\"Total available local SSD space\")]")
+    private WebElement localSsdSpace;
+
+    @FindBy (xpath = "//div[contains(text(),\"Commitment term:\")]")
+    private WebElement commitmentTerm;
+
+    @FindBy (xpath = "\"//div[contains(text(), \\\"Region:\\\")]\"")
+    private WebElement region;
+
+    @FindBy (xpath = "//b[contains(text(),\"Total Estimated Cost\")]")
+    private WebElement totalCost;
 
     public GoogleCloudPlatformPricingCalculatorPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -83,12 +102,7 @@ public class GoogleCloudPlatformPricingCalculatorPage {
     }
 
     public void switchToFrame() {
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        (new WebDriverWait(driver, 10))
+       (new WebDriverWait(driver, 10))
                 .until(ExpectedConditions.visibilityOf(frame));
         driver.switchTo().frame(frame);
     }
@@ -109,12 +123,6 @@ public class GoogleCloudPlatformPricingCalculatorPage {
 
     public void setOperationSystem(String operationSystem) {
         operationSystemContainer.click();
-//        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         for (WebElement os : operationSystemList) {
             if (os.getText().equals(operationSystem)) {
                 os.click();
@@ -124,37 +132,31 @@ public class GoogleCloudPlatformPricingCalculatorPage {
 
     }
 
-    public void setVmClass (String vmClass){
-        vmClassContainer.click();
+    public void setVmClass (String vmClass) {
         try {
-            Thread.sleep(3000);
-
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        vmClassContainer.click();
         for (WebElement vmc : vmClassList) {
             if (vmc.getText().equals(vmClass)) {
                 clickByJs(vmc);
-                Thread.sleep(3000);
+
                 return;
             }
         }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
     }
+
+
 
     public void setInstanceType (String instanceType){
         clickByJs(instanceTypeContainer);
-        try {
-            Thread.sleep(3000);
         for (WebElement instance : instanceTypeList) {
             if (instance.getText().contains(instanceType)) {
                 instance.click();
-                Thread.sleep(3000);
                 return;
             }
-        }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
 
     }
@@ -164,14 +166,8 @@ public class GoogleCloudPlatformPricingCalculatorPage {
     }
 
     public void selectGpuType(String gpyTypeValue){
-      //  scrollToElement(gpyType);
-        gpyType.click();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        for (WebElement gpuType : gpuTypeList) {
+         gpyType.click();
+         for (WebElement gpuType : gpuTypeList) {
             if (gpuType.getText().equals(gpyTypeValue)) {
                 gpuType.click();
                 return;
@@ -181,11 +177,6 @@ public class GoogleCloudPlatformPricingCalculatorPage {
 
     public void setNumberOfGPUs(String number){
         numberOfGpu.click();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         for (WebElement gpuNumber : numberOfGpuList) {
             if (gpuNumber.getText().equals(number)) {
                 gpuNumber.click();
@@ -229,8 +220,38 @@ public class GoogleCloudPlatformPricingCalculatorPage {
     private void clickByJs(WebElement element){
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
     }
+    
     public void setCommitedUsage(String value){
         committedUsage.click();
         committedUsageOption.click();
+    }
+
+    public void clickAddToEstimate(){
+        addToEstimateButton.click();
+    }
+
+    public String getVMClassText(){
+        return vmClass.getText();
+
+    }
+
+    public String getInstanceTypeText(){
+        return instanceType.getText();
+    }
+
+    public String getSsdSpace(){
+        return localSsdSpace.getText();
+    }
+
+    public String getCommitmentTerm(){
+        return commitmentTerm.getText();
+    }
+
+    public String getRegion(){
+        return region.getText();
+    }
+
+    public String getTotalCost(){
+        return totalCost.getText();
     }
 }
