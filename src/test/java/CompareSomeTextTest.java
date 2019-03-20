@@ -1,9 +1,10 @@
+import driver.DriverManager;
 import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import pages.pastebin.PastebinHomePage;
-import pages.pastebin.PastebinPostePage;
+        import org.junit.Test;
+        import org.openqa.selenium.WebDriver;
+        import pages.pastebin.PastebinHomePage;
+        import pages.pastebin.PastebinPostePage;
 
 public class CompareSomeTextTest {
     private WebDriver driver;
@@ -14,7 +15,7 @@ public class CompareSomeTextTest {
     @Test
     public void createNewPasteTest(){
 
-        driver = DriverManager.getChromeDriver();
+        driver = DriverManager.getDriver();
         driver.get("https://pastebin.com/");
 
         PastebinHomePage pastebinHomePage = new PastebinHomePage(driver);
