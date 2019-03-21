@@ -1,13 +1,10 @@
-import driver.DriverManager;
 import model.Order;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import pages.googlecloud.GoogleCloudHomePage;
-import pages.googlecloud.GoogleCloudPlatformPricingCalculatorPage;
-import pages.googlecloud.GoogleGpcPricingPage;
-import pages.googlecloud.GoogleProductsAndServicesPage;
+import pages.googlecloud.CalculatorPage;
+import pages.googlecloud.PricingPage;
+import pages.googlecloud.ProductsPage;
 import service.OrderCreator;
 
 
@@ -19,15 +16,12 @@ public class CreateNewOrderTest extends MainConditions{
     public void createTestTree() {
 
         Order order = OrderCreator.getPredefinedOrder();
-        driver.get("https://cloud.google.com/");
 
         GoogleCloudHomePage googleCloudHomePage = new GoogleCloudHomePage (driver);
-        googleCloudHomePage.clickExploreNewProductsButton();
-        GoogleProductsAndServicesPage googleProductsAndServicesPage = new GoogleProductsAndServicesPage(driver);
-        googleProductsAndServicesPage.clickSeePricingButton();
-        GoogleGpcPricingPage googleGpcPricingPage = new GoogleGpcPricingPage(driver);
-        googleGpcPricingPage.clickCaltulatorsButton();
-        GoogleCloudPlatformPricingCalculatorPage calculatorPage = new GoogleCloudPlatformPricingCalculatorPage(driver);
+
+        ProductsPage productsPage = googleCloudHomePage.open().clickExploreNewProductsButton();
+        PricingPage pricingPage = productsPage.clickSeePricingButton();
+        CalculatorPage calculatorPage = pricingPage.clickCaltulatorsButton();
         calculatorPage.switchToFrame();
         calculatorPage.setEngine("Compute Engine");
         calculatorPage.setNumberOfInstance("4");

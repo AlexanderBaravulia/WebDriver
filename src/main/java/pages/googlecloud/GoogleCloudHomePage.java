@@ -1,20 +1,29 @@
 package pages.googlecloud;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+        import org.openqa.selenium.WebDriver;
+        import org.openqa.selenium.WebElement;
+        import org.openqa.selenium.support.FindBy;
+        import pages.BasePage;
 
-public class GoogleCloudHomePage {
+public class GoogleCloudHomePage extends BasePage {
 
-    @FindBy (xpath = "//a[@track-name=\"exploreProducts\"]")
+    private final static String PAGE_URL = "https://cloud.google.com/";
+
+    @FindBy(xpath = "//a[@track-name=\"exploreProducts\"]")
     private WebElement exploreNewProductsButton;
 
-    public GoogleCloudHomePage(WebDriver driver){
-        PageFactory.initElements(driver, this);
+    @Override
+    public GoogleCloudHomePage open() {
+        driver.navigate().to(PAGE_URL);
+        return this;
     }
 
-    public void clickExploreNewProductsButton(){
+    public GoogleCloudHomePage(WebDriver driver) {
+        super(driver);
+    }
+
+    public ProductsPage clickExploreNewProductsButton() {
         exploreNewProductsButton.click();
+        return new ProductsPage(driver);
     }
 }
