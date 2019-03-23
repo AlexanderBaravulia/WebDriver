@@ -1,10 +1,10 @@
 import driver.DriverManager;
-import org.junit.AfterClass;
-import org.junit.Assert;
-        import org.junit.Test;
-        import org.openqa.selenium.WebDriver;
-        import pages.pastebin.PastebinHomePage;
-        import pages.pastebin.PastebinPostePage;
+import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.Test;
+import pages.pastebin.PastebinHomePage;
+import pages.pastebin.PastebinPostePage;
 
 public class CompareSomeTextTest {
     private WebDriver driver;
@@ -26,9 +26,9 @@ public class CompareSomeTextTest {
         pastebinHomePage.clickNewPostButton();
         PastebinPostePage pastebinPostePage = new PastebinPostePage(driver);
 
-        Assert.assertTrue("Title is not as expected", driver.getTitle().contains(TITLE));
-        Assert.assertEquals("Code is not correct", CODE_TEXT, pastebinPostePage.getTextFromTextArea());
-        Assert.assertTrue("Bash code style is not present", pastebinPostePage.isBashStylePresent());
+        Assert.assertTrue(driver.getTitle().contains(TITLE),"Title is not as expected");
+        Assert.assertEquals( CODE_TEXT, pastebinPostePage.getTextFromTextArea(),"Code is not correct");
+        Assert.assertTrue( pastebinPostePage.isBashStylePresent(), "Bash code style is not present");
     }
 
     @AfterClass

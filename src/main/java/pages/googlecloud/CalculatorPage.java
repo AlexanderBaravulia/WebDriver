@@ -1,11 +1,10 @@
 package pages.googlecloud;
 
-
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePage;
@@ -66,8 +65,10 @@ public class CalculatorPage extends BasePage {
     @FindBy(id = "select_value_label_44")
     private WebElement location;
 
-    @FindBy(id = "//md-option[contains(@ng-repeat,'fullRegionList')]")
+    @FindBy(xpath = "//*[@ng-model=\"listingCtrl.loadBalancer.location\"]//*[@ng-repeat=\"item in listingCtrl.fullRegionList\"]")
     private List<WebElement> locationList;
+
+    private By frankfurt = By.xpath("//md-option[@id='select_option_196' and @value='europe-west3']");
 
     @FindBy(id = "select_value_label_45")
     private WebElement committedUsage;
@@ -77,9 +78,6 @@ public class CalculatorPage extends BasePage {
 
     @FindBy(xpath = "//button[@aria-label='Add to Estimate'][1]")
     private WebElement addToEstimateButton;
-
-    @FindBy(tagName = "iframe")
-    private WebElement frame;
 
     @FindBy (xpath = "//div[contains(text(),\"VM class\")]")
     private WebElement vmClass;
@@ -93,7 +91,7 @@ public class CalculatorPage extends BasePage {
     @FindBy (xpath = "//div[contains(text(),\"Commitment term:\")]")
     private WebElement commitmentTerm;
 
-    @FindBy (xpath = "\"//div[contains(text(), \\\"Region:\\\")]\"")
+    @FindBy (xpath = "//div[contains(text(), 'Region:')]")
     private WebElement region;
 
     @FindBy (xpath = "//b[contains(text(),\"Total Estimated Cost\")]")
@@ -110,132 +108,142 @@ public class CalculatorPage extends BasePage {
         }
 
     public CalculatorPage switchToFrame() {
-       (new WebDriverWait(driver, 10))
-                .until(ExpectedConditions.visibilityOf(frame));
-        driver.switchTo().frame(frame);
+        driver.switchTo().frame("idIframe");
         return this;
     }
 
-    public void setEngine(String engineName) {
+    public CalculatorPage setEngine(String engineName) {
         for (WebElement engine : sectionsEngine) {
             if (engine.getText().equals(engineName.toUpperCase())) {
                 engine.click();
-                return;
+                break;
             }
         }
+        return this;
     }
 
-    public void setNumberOfInstance(String number){
+    public CalculatorPage setNumberOfInstance(String number){
         numberOfInstance.click();
         numberOfInstance.sendKeys(number);
+        return this;
     }
 
-    public void setOperationSystem(String operationSystem) {
+    public CalculatorPage setOperationSystem(String operationSystem) {
         operationSystemContainer.click();
+        new WebDriverWait(driver, 10)
+                .until(ExpectedConditions.visibilityOf(operationSystemList.get(0)));
         for (WebElement os : operationSystemList) {
-            if (os.getText().equals(operationSystem)) {
+            if (os.getText().contains(operationSystem)) {
                 os.click();
-                return;
+                break;
             }
         }
-
+        return this;
     }
 
-    public void setVmClass (String vmClass) {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public CalculatorPage setVmClass (String vmClass) {
         vmClassContainer.click();
+        new WebDriverWait(driver, 10)
+                .until(ExpectedConditions.visibilityOfAllElements(vmClassList));
         for (WebElement vmc : vmClassList) {
             if (vmc.getText().equals(vmClass)) {
-                clickByJs(vmc);
-
-                return;
+                            vmc.click();
+                break;
             }
         }
+        return this;
     }
 
-
-
-    public void setInstanceType (String instanceType){
-        clickByJs(instanceTypeContainer);
+    public CalculatorPage setInstanceType (String instanceType){
+        instanceTypeContainer.click();
+        new WebDriverWait(driver, 10)
+                .until(ExpectedConditions.visibilityOf(instanceTypeList.get(0)));
         for (WebElement instance : instanceTypeList) {
             if (instance.getText().contains(instanceType)) {
                 instance.click();
-                return;
+                break;
             }
         }
-
+        return this;
     }
 
-    public void selectAddGPUCheckbox(){
+    public CalculatorPage selectAddGPUCheckbox(){
         addGpuCheckbox.click();
+        return this;
     }
 
-    public void selectGpuType(String gpyTypeValue){
-         gpyType.click();
+    public CalculatorPage selectGpuType(String gpyTypeValue){
+        gpyType.click();
+        new WebDriverWait(driver, 10)
+                .until(ExpectedConditions.visibilityOf(gpuTypeList.get(0)));
          for (WebElement gpuType : gpuTypeList) {
             if (gpuType.getText().equals(gpyTypeValue)) {
                 gpuType.click();
-                return;
+                break;
             }
         }
+        return this;
     }
 
-    public void setNumberOfGPUs(String number){
+    public CalculatorPage setNumberOfGPUs(String number){
         numberOfGpu.click();
+        new WebDriverWait(driver, 10)
+                .until(ExpectedConditions.visibilityOf(numberOfGpuList.get(0)));
         for (WebElement gpuNumber : numberOfGpuList) {
             if (gpuNumber.getText().equals(number)) {
                 gpuNumber.click();
-                return;
+                break;
             }
         }
+        return this;
     }
 
-    public void setLocalSsd(String ssdValue) {
+    public CalculatorPage setLocalSsd(String ssdValue) {
         scrollToElement(localSsd);
         localSsd.click();
-        (new WebDriverWait(driver, 10)).until(ExpectedConditions.attributeContains(localSsd,
-                "aria-expanded", "true"));
+        (new WebDriverWait(driver, 10)).
+                until(ExpectedConditions.attributeContains(localSsd, "aria-expanded", "true"));
         for (WebElement ssd : ssdList){
+            scrollToElement(ssd);
             if (ssd.getText().equals(ssdValue)) {
                 ssd.click();
-                return;
+                break;
             }
         }
+        return this;
     }
 
-    public void setLocation(String locationValue) {
+    public CalculatorPage setLocation(String locationValue) {
+        scrollToElement(addToEstimateButton);
         location.click();
-        for (WebElement location : locationList) {
-            if (location.getText().contains(locationValue)) {
-                location.click();
-                return;
-            }
-        }
-    }
-
-    private void scrollToElement(WebElement element) {
-        JavascriptExecutor js = ((JavascriptExecutor) driver);
-        js.executeScript("arguments[0].scrollIntoView(true);", element);
+        (new WebDriverWait(driver, 10)).
+                until(ExpectedConditions.attributeContains(localSsd, "aria-expanded", "true"));
         try {
-            Thread.sleep(500);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
-    private void clickByJs(WebElement element){
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+        driver.findElement(frankfurt).click();
+//        for (WebElement location : locationList) {
+//            if (location.getText().contains(locationValue)) {
+//                JavascriptExecutor executor = (JavascriptExecutor)driver;
+//                executor.executeScript("arguments[0].click();", location);
+//                break;
+//            }
+//        }
+        return this;
     }
     
-    public void setCommitedUsage(String value){
+    public CalculatorPage setCommitedUsage(String value){
+        (new WebDriverWait(driver, 10)).
+                until(ExpectedConditions.visibilityOf(committedUsage));
         committedUsage.click();
         committedUsageOption.click();
+        return this;
     }
 
     public void clickAddToEstimate(){
+        scrollToElement(addToEstimateButton);
         addToEstimateButton.click();
     }
 

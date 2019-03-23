@@ -1,7 +1,13 @@
-C:\data\WebDriver\src\main\java\pages\googlecloud\GoogleProductsAndServicesPage.java
+C:\data\WebDriver\src\main\java\utill\Property.java
 C:\data\WebDriver\src\main\java\pages\googlecloud\GoogleCloudHomePage.java
-C:\data\WebDriver\src\main\java\DriverManager.java
-C:\data\WebDriver\src\main\java\pages\googlecloud\GoogleCloudPlatformPricingCalculatorPage.java
-C:\data\WebDriver\src\main\java\pages\googlecloud\GoogleGpcPricingPage.java
+C:\data\WebDriver\src\main\java\pages\googlecloud\CalculatorPage.java
+C:\data\WebDriver\src\main\java\pages\googlecloud\ProductsPage.java
+C:\data\WebDriver\src\main\java\pages\BasePage.java
+C:\data\WebDriver\src\main\java\utill\ElementAction.java
+C:\data\WebDriver\src\main\java\pages\googlecloud\PricingPage.java
 C:\data\WebDriver\src\main\java\pages\pastebin\PastebinPostePage.java
+C:\data\WebDriver\src\main\java\service\OrderCreator.java
+C:\data\WebDriver\src\main\java\conditions\MainConditions.java
+C:\data\WebDriver\src\main\java\driver\DriverManager.java
+C:\data\WebDriver\src\main\java\model\Order.java
 C:\data\WebDriver\src\main\java\pages\pastebin\PastebinHomePage.java

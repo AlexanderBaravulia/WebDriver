@@ -12,14 +12,14 @@ public class GoogleCloudHomePage extends BasePage {
     @FindBy(xpath = "//a[@track-name=\"exploreProducts\"]")
     private WebElement exploreNewProductsButton;
 
+    public GoogleCloudHomePage(WebDriver driver) {
+        super(driver);
+    }
+
     @Override
     public GoogleCloudHomePage open() {
         driver.navigate().to(PAGE_URL);
         return this;
-    }
-
-    public GoogleCloudHomePage(WebDriver driver) {
-        super(driver);
     }
 
     public ProductsPage clickExploreNewProductsButton() {

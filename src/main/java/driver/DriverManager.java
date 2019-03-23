@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class DriverManager {
 
     private static final String RESOURCES_PATH = "src\\main\\resources\\";
+    private static final int TIMEOUT = 7;
     private static WebDriver driver;
 
     private DriverManager() {
@@ -25,6 +26,7 @@ public class DriverManager {
                 case "firefox": {
                     System.setProperty("webdriver.gecko.driver", RESOURCES_PATH + "geckodriver.exe");
                     driver = new FirefoxDriver();
+                    break;
                 }
                 default: {
                     System.setProperty("webdriver.chrome.driver", RESOURCES_PATH + "chromedriver.exe");
@@ -32,6 +34,8 @@ public class DriverManager {
                 }
             }
             driver.manage().window().maximize();
+            driver.manage().timeouts().implicitlyWait(TIMEOUT, TimeUnit.SECONDS);
+            driver.manage().timeouts().pageLoadTimeout(TIMEOUT, TimeUnit.SECONDS);
         }
         return driver;
     }

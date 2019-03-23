@@ -8,13 +8,64 @@ public class Order {
     private  String region;
     private  String localSsd;
     private  String commitmentTerm;
+    private  String instanceNumber;
+    private  String engineType;
+    private  String operationSystem;
+    private  String gpuType;
+    private  String numberOfGPU;
 
-    public Order(String vmClass, String instanceType, String region, String localSsd, String commitmentTerm) {
+    public Order(String vmClass, String instanceType, String region, String localSsd, String commitmentTerm, String instanceNumber,
+                 String engineType, String operationSystem, String gpuType, String numberOfGPU) {
         this.vmClass = vmClass;
         this.instanceType = instanceType;
         this.region = region;
         this.localSsd = localSsd;
         this.commitmentTerm = commitmentTerm;
+        this.instanceNumber = instanceNumber;
+        this.engineType = engineType;
+        this.operationSystem = operationSystem;
+        this.gpuType = gpuType;
+        this.numberOfGPU = numberOfGPU;
+    }
+
+    public String getGpuType() {
+        return gpuType;
+    }
+
+    public void setGpuType(String gpuType) {
+        this.gpuType = gpuType;
+    }
+
+    public String getNumberOfGPU() {
+        return numberOfGPU;
+    }
+
+    public void setNumberOfGPU(String numberOfGPU) {
+        this.numberOfGPU = numberOfGPU;
+    }
+
+    public String getOperationSystem() {
+        return operationSystem;
+    }
+
+    public void setOperationSystem(String operationSystem) {
+        this.operationSystem = operationSystem;
+    }
+
+    public String getEngineType() {
+        return engineType;
+    }
+
+    public void setEngineType(String engineType) {
+        this.engineType = engineType;
+    }
+
+    public String getInstanceNumber() {
+        return instanceNumber;
+    }
+
+    public void setInstanceNumber(String instanceNumber) {
+        this.instanceNumber = instanceNumber;
     }
 
     public String getVmClass() {

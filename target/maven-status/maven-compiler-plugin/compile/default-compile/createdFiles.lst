@@ -1,0 +1,13 @@
+service\OrderCreator.class
+pages\BasePage.class
+pages\googlecloud\PricingPage.class
+utill\ElementAction.class
+pages\googlecloud\CalculatorPage.class
+pages\googlecloud\GoogleCloudHomePage.class
+pages\pastebin\PastebinHomePage.class
+utill\Property.class
+model\Order.class
+pages\pastebin\PastebinPostePage.class
+pages\googlecloud\ProductsPage.class
+conditions\MainConditions.class
+driver\DriverManager.class

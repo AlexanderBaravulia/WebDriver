@@ -1,6 +1,6 @@
 import driver.DriverManager;
-import org.junit.Test;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Test;
 import pages.pastebin.PastebinHomePage;
 
 public class PrintSomeTextTest {
