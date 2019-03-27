@@ -18,6 +18,7 @@ public class GoogleCloudHomePage extends BasePage {
 
     @Override
     public GoogleCloudHomePage open() {
+        logger.info("GoogleCloud Home page is opened.");
         driver.navigate().to(PAGE_URL);
         return this;
     }

@@ -15,6 +15,7 @@ public class ProductsPage extends BasePage {
     @Override
     public ProductsPage open() {
         driver.navigate().to(PAGE_URL);
+        logger.info("Products page is opened.");
         return this;
     }
 

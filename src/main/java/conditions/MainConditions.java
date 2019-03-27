@@ -2,10 +2,11 @@ package conditions;
 
 import driver.DriverManager;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.*;
+import utill.TestListener;
 
 
+@Listeners({TestListener.class})
 public class MainConditions {
 
     protected WebDriver driver;
@@ -18,5 +19,5 @@ public class MainConditions {
     @AfterMethod(alwaysRun = true)
     public void quitBrowser(){
         DriverManager.closeDriver();
-        }
+    }
 }

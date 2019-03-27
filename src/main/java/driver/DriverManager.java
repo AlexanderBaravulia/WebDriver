@@ -1,18 +1,16 @@
 package driver;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import utill.Property;
+import utill.PropertyReader;
 
-import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 
 public class DriverManager {
 
-    private static final String RESOURCES_PATH = "src\\main\\resources\\";
     private static final int TIMEOUT = 7;
     private static WebDriver driver;
 
@@ -21,15 +19,15 @@ public class DriverManager {
 
     public static WebDriver getDriver() {
         if (driver == null) {
-            String browser = Property.getValue("browser");
+            String browser = "chrome";//System.getProperty("browser");
             switch (browser) {
                 case "firefox": {
-                    System.setProperty("webdriver.gecko.driver", RESOURCES_PATH + "geckodriver.exe");
+                    WebDriverManager.firefoxdriver().setup();
                     driver = new FirefoxDriver();
                     break;
                 }
                 default: {
-                    System.setProperty("webdriver.chrome.driver", RESOURCES_PATH + "chromedriver.exe");
+                   WebDriverManager.chromedriver().setup();
                     driver = new ChromeDriver();
                 }
             }

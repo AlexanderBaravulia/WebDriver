@@ -3,7 +3,7 @@
 <suite name="SeleniumTest">
     <test name="GoogleCloud">
         <classes>
-            <class name="googlecloud.GoogleCalculatorTest" />
+            <class name="googlecloud.GoogleCalculatorTest"/>
         </classes>
     </test>
 </suite>

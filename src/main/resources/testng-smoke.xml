@@ -1,3 +1,13 @@
-<packages>
-    <package name="com.epam.ta.test" />
-</packages>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="SeleniumTest">
+    <test name="GoogleCloud">
+        <classes>
+            <class name="googlecloud.GoogleCalculatorTest">
+                <methods>
+                    <include name="checkCalculatorPageAvailableTest"></include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

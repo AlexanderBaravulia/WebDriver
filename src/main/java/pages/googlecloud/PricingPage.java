@@ -18,6 +18,7 @@ public class PricingPage extends BasePage {
 
     @Override
     public BasePage open() {
+        logger.info("Pricing page is opened.");
         driver.navigate().to(PAGE_URL);
         return this;
     }

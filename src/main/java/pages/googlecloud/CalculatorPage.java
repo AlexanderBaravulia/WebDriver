@@ -1,7 +1,6 @@
 package pages.googlecloud;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,31 +13,30 @@ import java.util.List;
 
 public class CalculatorPage extends BasePage {
 
-
-    private final static String PAGE_URL="https://cloud.google.com/products/calculator/";
+    public final static String PAGE_URL="https://cloud.google.com/products/calculator/";
 
     @FindBy(xpath = "//md-tabs-wrapper//md-tab-item//div[@class=\"name ng-binding\"]")
     private List<WebElement> sectionsEngine;
 
-    @FindBy(xpath = "//input[@id=\"input_46\"]")
+    @FindBy(xpath = "//input[@ng-model='listingCtrl.computeServer.quantity']")
     private WebElement numberOfInstance;
 
-    @FindBy(id = "select_value_label_40")
+    @FindBy(xpath = "//*[@ng-model='listingCtrl.computeServer.os']")
     private WebElement operationSystemContainer;
 
-    @FindBy(xpath = "//div[@id=\"select_container_59\"]//md-content/md-option")
+    @FindBy(xpath = "//div[@id=\"select_container_60\"]//md-content/md-option")
     private List<WebElement> operationSystemList;
 
-    @FindBy (id = "select_value_label_41")
+    @FindBy (xpath = "//*[@ng-model='listingCtrl.computeServer.class']")
     private WebElement vmClassContainer;
 
-    @FindBy(xpath = "//div[@id=\"select_container_63\"]//md-content/md-option")
+    @FindBy(xpath = "//div[@id=\"select_container_64\"]//md-content/md-option")
     private List<WebElement> vmClassList;
 
-    @FindBy (id="select_value_label_42")
+    @FindBy (id="select_value_label_43")
     private WebElement instanceTypeContainer;
 
-    @FindBy(xpath = "//div[@id=\"select_container_94\"]//md-optgroup[@label='Standard']/md-option")
+    @FindBy(xpath = "//div[@id=\"select_container_95\"]//md-optgroup[@label='Standard']/md-option")
     private List<WebElement> instanceTypeList;
 
     @FindBy(xpath = "//md-checkbox[contains(@ng-model,'addGPUs')]/div[@md-ink-ripple-checkbox]")
@@ -56,24 +54,24 @@ public class CalculatorPage extends BasePage {
     @FindBy(xpath = "//md-option[contains(@ng-disabled,'minGPU')]")
     private List<WebElement> numberOfGpuList;
 
-    @FindBy(id = "select_95")
+    @FindBy(id = "select_96")
     private WebElement localSsd;
 
     @FindBy(xpath = "//md-option[contains(@ng-repeat,'supportedSsd')]")
     private List<WebElement> ssdList;
 
-    @FindBy(id = "select_value_label_44")
+    @FindBy(xpath = "//md-select[@ng-model=\"listingCtrl.computeServer.location\"]")
     private WebElement location;
 
     @FindBy(xpath = "//*[@ng-model=\"listingCtrl.loadBalancer.location\"]//*[@ng-repeat=\"item in listingCtrl.fullRegionList\"]")
     private List<WebElement> locationList;
 
-    private By frankfurt = By.xpath("//md-option[@id='select_option_196' and @value='europe-west3']");
+    private By frankfurt = By.xpath("//md-option[@id='select_option_197' and @value='europe-west3']");
 
-    @FindBy(id = "select_value_label_45")
+    @FindBy(id = "select_value_label_46")
     private WebElement committedUsage;
 
-    @FindBy(id = "select_option_100")
+    @FindBy(id = "select_option_101")
     private WebElement committedUsageOption;
 
     @FindBy(xpath = "//button[@aria-label='Add to Estimate'][1]")
@@ -97,9 +95,14 @@ public class CalculatorPage extends BasePage {
     @FindBy (xpath = "//b[contains(text(),\"Total Estimated Cost\")]")
     private WebElement totalCost;
 
+    @FindBy (id = "email_quote")
+    private WebElement emailQuoteButton;
+
+
     @Override
-    public BasePage open() {
+    public CalculatorPage open() {
         driver.navigate().to(PAGE_URL);
+        logger.info("Calculator page is opened.");
         return this;
     }
 
@@ -217,12 +220,7 @@ public class CalculatorPage extends BasePage {
         scrollToElement(addToEstimateButton);
         location.click();
         (new WebDriverWait(driver, 10)).
-                until(ExpectedConditions.attributeContains(localSsd, "aria-expanded", "true"));
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+                until(ExpectedConditions.attributeContains(location, "aria-expanded", "true"));
         driver.findElement(frankfurt).click();
 //        for (WebElement location : locationList) {
 //            if (location.getText().contains(locationValue)) {
@@ -242,15 +240,25 @@ public class CalculatorPage extends BasePage {
         return this;
     }
 
-    public void clickAddToEstimate(){
+    public CalculatorPage clickAddToEstimate(){
         scrollToElement(addToEstimateButton);
         addToEstimateButton.click();
+        return this;
+    }
+
+    public EmailForm clickEmailQuote(){
+        emailQuoteButton.click();
+        return new EmailForm(driver);
+
     }
 
     public String getVMClassText(){
         return vmClass.getText();
 
     }
+
+
+
 
     public String getInstanceTypeText(){
         return instanceType.getText();
