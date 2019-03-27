@@ -27,8 +27,10 @@ public class EmailForm extends BasePage {
 
     public EmailForm addEmail(String email){
         scrollToElement(emailField);
-        emailField.sendKeys(email);
         try {
+            Thread.sleep(2000);
+            emailField.click();
+            emailField.sendKeys(email);
             Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
