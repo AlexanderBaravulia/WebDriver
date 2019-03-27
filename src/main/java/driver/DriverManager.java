@@ -19,7 +19,7 @@ public class DriverManager {
 
     public static WebDriver getDriver() {
         if (driver == null) {
-            String browser = "chrome";//System.getProperty("browser");
+            String browser = System.getProperty("browser");
             switch (browser) {
                 case "firefox": {
                     WebDriverManager.firefoxdriver().setup();
