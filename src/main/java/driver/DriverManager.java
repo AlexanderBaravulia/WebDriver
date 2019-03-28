@@ -9,7 +9,6 @@ import java.util.concurrent.TimeUnit;
 
 
 public class DriverManager {
-    private static final String RESOURCES_PATH = "src\\main\\resources\\";
     private static final int TIMEOUT = 10;
     private static WebDriver driver;
 
@@ -26,7 +25,7 @@ public class DriverManager {
                     break;
                 }
                 default: {
-                    System.setProperty("webdriver.chrome.driver", RESOURCES_PATH + "chromedriver.exe");
+                    WebDriverManager.chromedriver().setup();
                     driver = new ChromeDriver();
                 }
             }
