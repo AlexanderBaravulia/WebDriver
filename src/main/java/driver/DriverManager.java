@@ -4,14 +4,13 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import utill.PropertyReader;
 
 import java.util.concurrent.TimeUnit;
 
 
 public class DriverManager {
     private static final String RESOURCES_PATH = "src\\main\\resources\\";
-    private static final int TIMEOUT = 7;
+    private static final int TIMEOUT = 10;
     private static WebDriver driver;
 
     private DriverManager() {
@@ -32,7 +31,7 @@ public class DriverManager {
                 }
             }
             driver.manage().window().maximize();
-            driver.manage().timeouts().pageLoadTimeout(TIMEOUT, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(TIMEOUT, TimeUnit.SECONDS);
         }
         return driver;
     }

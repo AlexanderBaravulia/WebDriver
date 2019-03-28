@@ -9,7 +9,6 @@ import pages.BasePage;
 
 import java.util.List;
 
-
 public class CalculatorPage extends BasePage {
 
     public final static String PAGE_URL="https://cloud.google.com/products/calculator/";
@@ -97,16 +96,16 @@ public class CalculatorPage extends BasePage {
     @FindBy (id = "email_quote")
     private WebElement emailQuoteButton;
 
+    public CalculatorPage(WebDriver driver) {
+        super(driver);
+    }
+
     @Override
     public CalculatorPage open() {
         driver.navigate().to(PAGE_URL);
         logger.info("Calculator page is opened.");
         return this;
     }
-
-    public CalculatorPage(WebDriver driver) {
-        super(driver);
-        }
 
     public CalculatorPage switchToFrame() {
         driver.switchTo().frame("idIframe");
@@ -196,7 +195,6 @@ public class CalculatorPage extends BasePage {
     public EmailForm clickEmailQuote(){
         emailQuoteButton.click();
         return new EmailForm(driver);
-
     }
 
     public String getVMClassText(){

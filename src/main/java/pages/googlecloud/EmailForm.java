@@ -27,19 +27,14 @@ public class EmailForm extends BasePage {
 
     public EmailForm addEmail(String email){
         scrollToElement(emailField);
-        try {
-            Thread.sleep(2000);
-            emailField.click();
-            emailField.sendKeys(email);
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        emailField.click();
+        emailField.clear();
+        emailField.sendKeys(email);
         return this;
     }
 
     public CalculatorPage clickSendEmailAdress(){
-        new WebDriverWait(driver,3).until(ExpectedConditions.elementToBeClickable(sendEmailButton));
+        new WebDriverWait(driver,10).until(ExpectedConditions.elementToBeClickable(sendEmailButton));
         scrollToElement(sendEmailButton);
         sendEmailButton.click();
         return new CalculatorPage(driver);

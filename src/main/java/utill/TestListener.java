@@ -21,7 +21,7 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult iTestResult) {
-        logger.info("Test started");
+        logger.info("Test started.");
     }
 
     @Override
