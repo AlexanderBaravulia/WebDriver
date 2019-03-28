@@ -9,7 +9,7 @@ public class PricingPage extends BasePage {
 
     private final static String PAGE_URL = "https://cloud.google.com/pricing/";
 
-    @FindBy(xpath = "//a[@track-name=\"pricingNav/calculators\"]")
+    @FindBy(xpath = "//a[@track-name='pricingNav/calculators']")
     private WebElement calculatorsButton;
 
     public PricingPage(WebDriver driver){

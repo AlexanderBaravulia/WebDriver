@@ -9,7 +9,7 @@ public class ProductsPage extends BasePage {
 
     private final static String PAGE_URL = "https://cloud.google.com/products/";
 
-    @FindBy (xpath = "//a[@track-name=\"seePricing\"]")
+    @FindBy (xpath = "//a[@track-name='seePricing']")
     private WebElement seePricingButton;
 
     @Override

@@ -6,7 +6,6 @@ import model.User;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 import pages.googlecloud.GoogleCloudHomePage;
 import pages.googlecloud.CalculatorPage;
 import pages.googlecloud.PricingPage;
@@ -28,7 +27,7 @@ public class GoogleCalculatorTest extends MainConditions {
 
     @Test
     public void checkCalculatorPageAvailableTest(){
-        CalculatorPage calculatorPage = new CalculatorPage(driver).open();
+        new CalculatorPage(driver).open();
         Assert.assertEquals(driver.getCurrentUrl(), CalculatorPage.PAGE_URL);
     }
 
@@ -49,16 +48,15 @@ public class GoogleCalculatorTest extends MainConditions {
                 .setNumberOfGPUs(order.getNumberOfGPU())
                 .setLocalSsd(order.getLocalSsd())
                 .setLocation(order.getRegion())
-                .setCommitedUsage(order.getCommitmentTerm())
+                .setCommitedUsage()
                 .clickAddToEstimate();
 
-        Assert.assertTrue(calculatorPage.getVMClassText().contains(order.getVmClass().toLowerCase()),"VM class is not same");
-        Assert.assertTrue(calculatorPage.getInstanceTypeText().contains(order.getInstanceType()),"Instance Type is not same");
-        Assert.assertTrue(calculatorPage.getSsdSpace().contains(order.getLocalSsd()), "Local SSD is not the same");
-        Assert.assertTrue(calculatorPage.getCommitmentTerm().contains(order.getCommitmentTerm()),"Commitment Term is not the same");
-        Assert.assertTrue(calculatorPage.getRegion().contains(order.getRegion()),"Region is not the same");
-        Assert.assertTrue(calculatorPage.getTotalCost().contains(TOTAL_ESTIMATE),"Total estimate is not the same");
-
+        softAssert.assertTrue(calculatorPage.getVMClassText().contains(order.getVmClass().toLowerCase()),"VM class is not same");
+        softAssert.assertTrue(calculatorPage.getInstanceTypeText().contains(order.getInstanceType()),"Instance Type is not same");
+        softAssert.assertTrue(calculatorPage.getSsdSpace().contains(order.getLocalSsd()), "Local SSD is not the same");
+        softAssert.assertTrue(calculatorPage.getCommitmentTerm().contains(order.getCommitmentTerm()),"Commitment Term is not the same");
+        softAssert.assertTrue(calculatorPage.getRegion().contains(order.getRegion()),"Region is not the same");
+        softAssert.assertTrue(calculatorPage.getTotalCost().contains(TOTAL_ESTIMATE),"Total estimate is not the same");
     }
 
     @Test
@@ -81,7 +79,7 @@ public class GoogleCalculatorTest extends MainConditions {
                 .setNumberOfGPUs(order.getNumberOfGPU())
                 .setLocalSsd(order.getLocalSsd())
                 .setLocation(order.getRegion())
-                .setCommitedUsage(order.getCommitmentTerm())
+                .setCommitedUsage()
                 .clickAddToEstimate()
                 .clickEmailQuote()
                 .addEmail(user.getEmailAdress())

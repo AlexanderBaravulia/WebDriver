@@ -3,19 +3,19 @@ package model;
 import java.util.Objects;
 
 public class Order {
-    private  String vmClass;
-    private  String instanceType;
-    private  String region;
-    private  String localSsd;
-    private  String commitmentTerm;
-    private  String instanceNumber;
-    private  String engineType;
-    private  String operationSystem;
-    private  String gpuType;
-    private  String numberOfGPU;
+    private String vmClass;
+    private String instanceType;
+    private String region;
+    private String localSsd;
+    private String commitmentTerm;
+    private int instanceNumber;
+    private String engineType;
+    private String operationSystem;
+    private String gpuType;
+    private int numberOfGPU;
 
-    public Order(String vmClass, String instanceType, String region, String localSsd, String commitmentTerm, String instanceNumber,
-                 String engineType, String operationSystem, String gpuType, String numberOfGPU) {
+    public Order(String vmClass, String instanceType, String region, String localSsd, String commitmentTerm,
+                 int instanceNumber, String engineType, String operationSystem, String gpuType, int numberOfGPU) {
         this.vmClass = vmClass;
         this.instanceType = instanceType;
         this.region = region;
@@ -36,11 +36,11 @@ public class Order {
         this.gpuType = gpuType;
     }
 
-    public String getNumberOfGPU() {
+    public int getNumberOfGPU() {
         return numberOfGPU;
     }
 
-    public void setNumberOfGPU(String numberOfGPU) {
+    public void setNumberOfGPU(int numberOfGPU) {
         this.numberOfGPU = numberOfGPU;
     }
 
@@ -60,11 +60,11 @@ public class Order {
         this.engineType = engineType;
     }
 
-    public String getInstanceNumber() {
+    public int getInstanceNumber() {
         return instanceNumber;
     }
 
-    public void setInstanceNumber(String instanceNumber) {
+    public void setInstanceNumber(int instanceNumber) {
         this.instanceNumber = instanceNumber;
     }
 

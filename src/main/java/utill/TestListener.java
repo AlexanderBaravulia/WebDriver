@@ -68,7 +68,7 @@ public class TestListener implements ITestListener {
     }
 
     private String getCurrentTimeAsString(){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern( PropertyReader.getValue("datetime.pattern"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern( PropertyReader.getConfigValue("datetime.pattern"));
         return ZonedDateTime.now().format(formatter);
     }
 }

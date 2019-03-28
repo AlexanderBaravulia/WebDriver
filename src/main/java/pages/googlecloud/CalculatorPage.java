@@ -1,11 +1,10 @@
 package pages.googlecloud;
 
+import driver.Waiter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePage;
 
 import java.util.List;
@@ -15,7 +14,7 @@ public class CalculatorPage extends BasePage {
 
     public final static String PAGE_URL="https://cloud.google.com/products/calculator/";
 
-    @FindBy(xpath = "//md-tabs-wrapper//md-tab-item//div[@class=\"name ng-binding\"]")
+    @FindBy(xpath = "//md-tabs-wrapper//md-tab-item//div[@class='name ng-binding']")
     private List<WebElement> sectionsEngine;
 
     @FindBy(xpath = "//input[@ng-model='listingCtrl.computeServer.quantity']")
@@ -24,19 +23,19 @@ public class CalculatorPage extends BasePage {
     @FindBy(xpath = "//*[@ng-model='listingCtrl.computeServer.os']")
     private WebElement operationSystemContainer;
 
-    @FindBy(xpath = "//div[@id=\"select_container_60\"]//md-content/md-option")
+    @FindBy(xpath = "//div[@id='select_container_60']//md-content/md-option")
     private List<WebElement> operationSystemList;
 
     @FindBy (xpath = "//*[@ng-model='listingCtrl.computeServer.class']")
     private WebElement vmClassContainer;
 
-    @FindBy(xpath = "//div[@id=\"select_container_64\"]//md-content/md-option")
+    @FindBy(xpath = "//div[@id='select_container_64']//md-content/md-option")
     private List<WebElement> vmClassList;
 
     @FindBy (id="select_value_label_43")
     private WebElement instanceTypeContainer;
 
-    @FindBy(xpath = "//div[@id=\"select_container_95\"]//md-optgroup[@label='Standard']/md-option")
+    @FindBy(xpath = "//div[@id='select_container_95']//md-optgroup[@label='Standard']/md-option")
     private List<WebElement> instanceTypeList;
 
     @FindBy(xpath = "//md-checkbox[contains(@ng-model,'addGPUs')]/div[@md-ink-ripple-checkbox]")
@@ -60,10 +59,10 @@ public class CalculatorPage extends BasePage {
     @FindBy(xpath = "//md-option[contains(@ng-repeat,'supportedSsd')]")
     private List<WebElement> ssdList;
 
-    @FindBy(xpath = "//md-select[@ng-model=\"listingCtrl.computeServer.location\"]")
+    @FindBy(xpath = "//md-select[@ng-model='listingCtrl.computeServer.location']")
     private WebElement location;
 
-    @FindBy(xpath = "//*[@ng-model=\"listingCtrl.loadBalancer.location\"]//*[@ng-repeat=\"item in listingCtrl.fullRegionList\"]")
+    @FindBy(xpath = "//*[@ng-model='listingCtrl.loadBalancer.location']//*[@ng-repeat='item in listingCtrl.fullRegionList']")
     private List<WebElement> locationList;
 
     private By frankfurt = By.xpath("//md-option[@id='select_option_197' and @value='europe-west3']");
@@ -77,27 +76,26 @@ public class CalculatorPage extends BasePage {
     @FindBy(xpath = "//button[@aria-label='Add to Estimate'][1]")
     private WebElement addToEstimateButton;
 
-    @FindBy (xpath = "//div[contains(text(),\"VM class\")]")
+    @FindBy (xpath = "//div[contains(text(),'VM class')]")
     private WebElement vmClass;
 
-    @FindBy (xpath ="//div[contains(text(),\"Instance type:\")]")
+    @FindBy (xpath ="//div[contains(text(),'Instance type:')]")
     private WebElement instanceType;
 
-    @FindBy (xpath = "//div[contains(text(),\"Total available local SSD space\")]")
+    @FindBy (xpath = "//div[contains(text(),'Total available local SSD space')]")
     private WebElement localSsdSpace;
 
-    @FindBy (xpath = "//div[contains(text(),\"Commitment term:\")]")
+    @FindBy (xpath = "//div[contains(text(),'Commitment term:')]")
     private WebElement commitmentTerm;
 
     @FindBy (xpath = "//div[contains(text(), 'Region:')]")
     private WebElement region;
 
-    @FindBy (xpath = "//b[contains(text(),\"Total Estimated Cost\")]")
+    @FindBy (xpath = "//b[contains(text(),'Total Estimated Cost')]")
     private WebElement totalCost;
 
     @FindBy (id = "email_quote")
     private WebElement emailQuoteButton;
-
 
     @Override
     public CalculatorPage open() {
@@ -116,57 +114,34 @@ public class CalculatorPage extends BasePage {
     }
 
     public CalculatorPage setEngine(String engineName) {
-        for (WebElement engine : sectionsEngine) {
-            if (engine.getText().equals(engineName.toUpperCase())) {
-                engine.click();
-                break;
-            }
-        }
+        setOptionFromListByEquals(sectionsEngine,engineName.toUpperCase());
         return this;
     }
 
-    public CalculatorPage setNumberOfInstance(String number){
+    public CalculatorPage setNumberOfInstance(int number){
         numberOfInstance.click();
-        numberOfInstance.sendKeys(number);
+        numberOfInstance.sendKeys(String.valueOf(number));
         return this;
     }
 
     public CalculatorPage setOperationSystem(String operationSystem) {
         operationSystemContainer.click();
-        new WebDriverWait(driver, 10)
-                .until(ExpectedConditions.visibilityOf(operationSystemList.get(0)));
-        for (WebElement os : operationSystemList) {
-            if (os.getText().contains(operationSystem)) {
-                os.click();
-                break;
-            }
-        }
+        Waiter.waitListElementVisible(driver, operationSystemList);
+        setOptionFromListByContains(operationSystemList, operationSystem);
         return this;
     }
 
-    public CalculatorPage setVmClass (String vmClass) {
+    public CalculatorPage setVmClass(String vmClass) {
         vmClassContainer.click();
-        new WebDriverWait(driver, 10)
-                .until(ExpectedConditions.visibilityOfAllElements(vmClassList));
-        for (WebElement vmc : vmClassList) {
-            if (vmc.getText().equals(vmClass)) {
-                            vmc.click();
-                break;
-            }
-        }
+        Waiter.waitListElementVisible(driver, vmClassList);
+        setOptionFromListByEquals(vmClassList, vmClass);
         return this;
     }
 
     public CalculatorPage setInstanceType (String instanceType){
         instanceTypeContainer.click();
-        new WebDriverWait(driver, 10)
-                .until(ExpectedConditions.visibilityOf(instanceTypeList.get(0)));
-        for (WebElement instance : instanceTypeList) {
-            if (instance.getText().contains(instanceType)) {
-                instance.click();
-                break;
-            }
-        }
+        Waiter.waitListElementVisible(driver,instanceTypeList);
+        setOptionFromListByContains(instanceTypeList, instanceType);
         return this;
     }
 
@@ -177,64 +152,36 @@ public class CalculatorPage extends BasePage {
 
     public CalculatorPage selectGpuType(String gpyTypeValue){
         gpyType.click();
-        new WebDriverWait(driver, 10)
-                .until(ExpectedConditions.visibilityOf(gpuTypeList.get(0)));
-         for (WebElement gpuType : gpuTypeList) {
-            if (gpuType.getText().equals(gpyTypeValue)) {
-                gpuType.click();
-                break;
-            }
-        }
+        Waiter.waitListElementVisible(driver, gpuTypeList);
+        setOptionFromListByEquals(gpuTypeList, gpyTypeValue);
         return this;
     }
 
-    public CalculatorPage setNumberOfGPUs(String number){
+    public CalculatorPage setNumberOfGPUs(int number){
         numberOfGpu.click();
-        new WebDriverWait(driver, 10)
-                .until(ExpectedConditions.visibilityOf(numberOfGpuList.get(0)));
-        for (WebElement gpuNumber : numberOfGpuList) {
-            if (gpuNumber.getText().equals(number)) {
-                gpuNumber.click();
-                break;
-            }
-        }
+        Waiter.waitListElementVisible(driver, numberOfGpuList);
+        setOptionFromListByEquals(numberOfGpuList, String.valueOf(number));
         return this;
     }
 
     public CalculatorPage setLocalSsd(String ssdValue) {
         scrollToElement(localSsd);
         localSsd.click();
-        (new WebDriverWait(driver, 10)).
-                until(ExpectedConditions.attributeContains(localSsd, "aria-expanded", "true"));
-        for (WebElement ssd : ssdList){
-            scrollToElement(ssd);
-            if (ssd.getText().equals(ssdValue)) {
-                ssd.click();
-                break;
-            }
-        }
+        Waiter.waitAttributeValue(driver,localSsd, "aria-expanded", "true");
+        setOptionFromListByEquals(ssdList, ssdValue);
         return this;
     }
 
     public CalculatorPage setLocation(String locationValue) {
         scrollToElement(addToEstimateButton);
         location.click();
-        (new WebDriverWait(driver, 10)).
-                until(ExpectedConditions.attributeContains(location, "aria-expanded", "true"));
+        Waiter.waitAttributeValue(driver,location, "aria-expanded", "true");
         driver.findElement(frankfurt).click();
-//        for (WebElement location : locationList) {
-//            if (location.getText().contains(locationValue)) {
-//                JavascriptExecutor executor = (JavascriptExecutor)driver;
-//                executor.executeScript("arguments[0].click();", location);
-//                break;
-//            }
-//        }
         return this;
     }
     
-    public CalculatorPage setCommitedUsage(String value){
-        (new WebDriverWait(driver, 10)).
-                until(ExpectedConditions.visibilityOf(committedUsage));
+    public CalculatorPage setCommitedUsage(){
+        Waiter.waitElementVisible(driver, committedUsage);
         committedUsage.click();
         committedUsageOption.click();
         return this;
@@ -254,11 +201,7 @@ public class CalculatorPage extends BasePage {
 
     public String getVMClassText(){
         return vmClass.getText();
-
     }
-
-
-
 
     public String getInstanceTypeText(){
         return instanceType.getText();
@@ -278,5 +221,25 @@ public class CalculatorPage extends BasePage {
 
     public String getTotalCost(){
         return totalCost.getText();
+    }
+
+    private void setOptionFromListByEquals(List<WebElement> webElementsList, String option){
+        for (WebElement webElement : webElementsList){
+            scrollToElement(webElement);
+            if (webElement.getText().equals(option)) {
+                webElement.click();
+                break;
+            }
+        }
+    }
+
+    private void setOptionFromListByContains(List<WebElement> webElementList, String option){
+        for (WebElement webElement : webElementList){
+            scrollToElement(webElement);
+            if (webElement.getText().contains(option)) {
+                webElement.click();
+                break;
+            }
+        }
     }
 }

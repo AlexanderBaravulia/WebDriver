@@ -9,10 +9,10 @@ import pages.BasePage;
 
 public class EmailForm extends BasePage {
 
-    @FindBy (xpath = "//input[@type=\"email\"]")
+    @FindBy (xpath = "//input[@type='email']")
     WebElement emailField;
 
-    @FindBy (xpath = "//button[@aria-label=\"Send Email\"]")
+    @FindBy (xpath = "//button[@aria-label='Send Email']")
     WebElement sendEmailButton;
 
     public EmailForm(WebDriver driver){
@@ -44,7 +44,4 @@ public class EmailForm extends BasePage {
         sendEmailButton.click();
         return new CalculatorPage(driver);
     }
-
-
-
 }

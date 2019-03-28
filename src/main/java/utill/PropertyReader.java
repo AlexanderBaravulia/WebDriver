@@ -1,17 +1,21 @@
 package utill;
 
+import model.Order;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
 public class PropertyReader {
 
-    public static String getValue(String key){
+    private static final String CONFIG_PATH = "src/main/resources/config.properties";
+    private static final String ORDER_PATH = "src/main/resources/order.properties";
+
+    private static String getValue(String patToProperty, String key){
         FileInputStream fis;
         Properties property = new Properties();
-
         try {
-            fis = new FileInputStream("src/main/resources/config.properties");
+            fis = new FileInputStream(patToProperty);
             property.load(fis);
             return property.getProperty(key);
         } catch (IOException e) {
@@ -19,4 +23,13 @@ public class PropertyReader {
             return null;
         }
     }
+
+    public static String getConfigValue(String key){
+        return getValue(CONFIG_PATH, key);
+    }
+
+    public static String getOrderValue(String key){
+        return getValue(ORDER_PATH, key);
+    }
+
 }
